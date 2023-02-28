@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 // import { GeoCodeRequestDto } from 'src/dto/geocode.request.dto';
 import axios from "axios";
@@ -14,10 +14,13 @@ export class geocodingService {
     const response = await axios.get(url);
     // console.log(response);
     const result = response.data.resourceSets[0].resources[0];
-
+    if (response.data.resourceSets[0].estimatedTotal == 0){
+      throw new NotFoundException('enter valid address');
+    }
     return {
       latitude: result.geocodePoints[0].coordinates[0],
       longtitude: result.geocodePoints[0].coordinates[1],
+      Locality: result.address['locality'],
     };
   }
 }
