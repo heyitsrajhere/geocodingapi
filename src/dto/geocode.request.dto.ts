@@ -1,8 +1,7 @@
 import { IsAlpha} from "class-validator";
 
 export class GeoCodeRequestDto {
-  
   // @IsString()
-  @IsAlpha()
+  // @IsAlpha()
   address: string;
 }
