@@ -1,7 +1,7 @@
 import { ConfigService } from "@nestjs/config";
 import { DataSource } from "typeorm";
 import { User } from "./entites/user.entity";
-import { logging } from "./log.entity";
+import { logging } from "./entites/log.entity";
 export const dbConnection = [
   {
     provide: "DataSource",

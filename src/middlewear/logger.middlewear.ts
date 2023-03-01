@@ -1,6 +1,6 @@
 import { Inject, Injectable, NestMiddleware } from "@nestjs/common";
 import { NextFunction, Request, Response } from "express";
-import { logging } from "src/db/log.entity";
+import { logging } from "src/db/entites/log.entity";
 import { DataSource } from "typeorm";
 
 @Injectable()
