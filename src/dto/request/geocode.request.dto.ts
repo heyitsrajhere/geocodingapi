@@ -5,5 +5,3 @@ export class GeoCodeRequestDto {
   // @IsAlpha()
   address: string;
 }
-
-
