@@ -1,5 +1,6 @@
 import { ConfigService } from "@nestjs/config";
 import { DataSource } from "typeorm";
+import { User } from "./entites/user.entity";
 import { logging } from "./log.entity";
 export const dbConnection = [
   {
@@ -14,7 +15,7 @@ export const dbConnection = [
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_DATABASE'),
         synchronize: true,
-        entities: [logging],
+        entities: [logging, User],
         logging: true,
       });
       return await dataSource.initialize();
