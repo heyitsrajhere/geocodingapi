@@ -13,29 +13,20 @@ export class AuthService {
     @Inject("DataSource") private dataSource: DataSource,
     private jwtService: JwtService
   ) {}
-
-  async registerUser(
-    registerUserDto: UserDto
-  ): Promise<RegistrationResponseDto> {
+  async registerUser(registerUserDto: UserDto): Promise<RegistrationResponseDto> {
     const { userEmail } = registerUserDto;
     let { userPassword } = registerUserDto;
     try {
       const salt = await genSalt();
       userPassword = await hash(userPassword, salt);
-      const added = await this.dataSource.manager.insert(User, {
-        userEmail,
-        userPassword,
-      });
+      const added = await this.dataSource.manager.insert(User, {userEmail,userPassword,});
 
       if (added) {
         return new RegistrationResponseDto(true, "Registration successful");
       }
     } catch (error) {
       if (error.code === 23505) {
-        return new RegistrationResponseDto(
-          false,
-          "already registered! Please login"
-        );
+        return new RegistrationResponseDto(false,"already registered!");
       } else {
         console.log(error);
         throw new BadRequestException("Unable to register");
@@ -58,11 +49,7 @@ export class AuthService {
         }
       }
       if (!user) {
-        return new LoginResponseDto(
-          false,
-          "You are not registered Please Register",
-          null
-        );
+        return new LoginResponseDto(false,"Please Register",null);
       }
     } catch (error) {
       console.log(error);
